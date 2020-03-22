@@ -10,9 +10,14 @@ public class Aim : MonoBehaviour
     void Update()
     {
         Vector3 directionToFace = cube.position - transform.position;
-
+        
+        //Draws a visible line from source to target
         Debug.DrawRay(transform.position, directionToFace, Color.red);
-
-        transform.rotation = Quaternion.LookRotation(directionToFace);
+        
+        //rotation to the target
+        Quaternion targetRotation = Quaternion.LookRotation(directionToFace);
+        
+        //Quaternion.Slerp - interpolate the rotation (makes it smoothly)
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2);        
     }
 }
